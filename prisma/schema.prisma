@@ -14,7 +14,11 @@ model User {
   id Int @id @default(autoincrement())
   createdAt DateTime @default(now()) @map("created_at")
   upadtedAt DateTime @updatedAt @map("upadted_at")
+
+  name String
   email String @unique
   password String
   tg String?
+  phone String
+  role String? @default("user")
 }

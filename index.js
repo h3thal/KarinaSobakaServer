@@ -1,16 +1,17 @@
 import express from "express";
 import morgan from "morgan";
 import dotenv from "dotenv";
-import { prisma } from "./prismaClient.js";
+import { prisma } from "./prisma.js";
 
 import authRoute from "./auth/auth.route.js";
+import { errorHandler, notFound } from "./middleware/error.middleware.js";
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const main = () => {
+const main = async () => {
 	if (process.env.NODE_ENV === "development") {
 		app.use(morgan("dev"));
 	}
@@ -22,6 +23,10 @@ const main = () => {
 			message: "nice",
 		});
 	});
+	app.use(notFound);
+
+	// Middleware для обработки ошибок
+	app.use(errorHandler);
 
 	app.listen(PORT, () => {
 		console.log(`Сервер успешно запущен на порту: ${PORT}`);
