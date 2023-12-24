@@ -1,6 +1,9 @@
 import express from "express";
 import morgan from "morgan";
 import dotenv from "dotenv";
+import { prisma } from "./prismaClient.js";
+
+import authRoute from "./auth/auth.route.js";
 
 dotenv.config();
 
@@ -12,6 +15,7 @@ const main = () => {
 		app.use(morgan("dev"));
 	}
 	app.use(express.json());
+	app.use("/api/auth", authRoute);
 
 	app.get("/", (req, res) => {
 		res.status(200).json({
@@ -24,4 +28,12 @@ const main = () => {
 	});
 };
 
-main();
+main()
+	.then(async () => {
+		await prisma.$disconnect();
+	})
+	.catch(async (e) => {
+		console.error(e);
+		await prisma.$disconnect();
+		process.exit(1);
+	});
