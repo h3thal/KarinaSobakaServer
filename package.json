@@ -1,11 +1,19 @@
 {
-  "name": "server",
-  "version": "1.0.0",
-  "main": "index.js",
-  "repository": "https://github.com/h3thal/KarinaSobakaServer",
-  "author": "hethal",
-  "license": "MIT",
-  "dependencies": {
-    "express": "^4.18.2"
-  }
+	"name": "server",
+	"version": "1.0.0",
+	"main": "index.js",
+	"type": "module",
+	"repository": "https://github.com/h3thal/KarinaSobakaServer",
+	"author": "hethal",
+	"license": "MIT",
+	"scripts": {
+		"start": "node index.js",
+		"dev": "nodemon index.js"
+	},
+	"dependencies": {
+		"dotenv": "^16.3.1",
+		"express": "^4.18.2",
+		"morgan": "^1.10.0",
+		"nodemon": "^3.0.2"
+	}
 }
